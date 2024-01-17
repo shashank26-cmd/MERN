@@ -55,11 +55,15 @@ export const register = async (req, res) => {
 export const login=async(req,res)=>{
 
 const {email,password}=req.body;
-const userExists=await User.findOne({email}).select('+password');
+
+
+const userExists=await User.findOne({email}); 
+
 if(!userExists){
     return res.status(400).json({
         message:"invalid email"
     })
+    console.log("con");
 
 }
 if (!(userExists && (await userExists.comparePassword(password)))){
