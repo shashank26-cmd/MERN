@@ -93,3 +93,19 @@ res.status(201).json({
 
 
 }
+export const get=async(req,res)=>{
+try{
+
+const data=req.user;
+console.log(data);
+
+return res.status(201).json({
+    msg:data
+}) 
+
+
+}
+catch(e){
+    console.log(`error from the route ${e}`)
+}
+}
