@@ -8,12 +8,17 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Service from './pages/Service'
 import Navbar from './components/Navbar'
+import {Logout} from './pages/Logout'
 
 function App() {
 
+
   return (
     <>
+    <div className="bg-black min-h-screen text-white">
+
 <Navbar />
+
     <Routes>
 <Route path='/' element={<Home/>}></Route>
 <Route path='/About' element={<About/>}></Route>
@@ -22,12 +27,12 @@ function App() {
 <Route path='/login' element={<Login/>}></Route>
 <Route path='/register' element={<Register/>}></Route>
 <Route path='/Service' element={<Service/>}></Route>
-
+<Route path="/logout" element={<Logout/>}  />
 
 
 
     </Routes>
-
+</div>
     </>
   )
 }

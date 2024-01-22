@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-
+import { useAuth } from "../store/auth";
 
 function Navbar(){
+    const {isLoggedIn}=useAuth();
 return(
 <>
 <div className="flex justify-between items-center py-4  w-full h-auto bg-black">
@@ -34,11 +35,27 @@ return(
     Contact
     </button>
 </Link>
-<Link to="/login">
-<button className="border text-violet-800 border-yellow-500 px-2 py-1 rounded-md font-semibold cursor-pointer hover:bg-yellow-600 transition-all ease-in-out duration-300">
-    login
-    </button>
-</Link>
+
+
+{isLoggedIn ? (
+            <Link to="/logout">
+              <button className="border text-violet-800 border-yellow-500 px-2 py-1 rounded-md font-semibold cursor-pointer hover:bg-yellow-600 transition-all ease-in-out duration-300">
+                Logout
+              </button>
+            </Link>
+          ) : (
+            <>
+              <Link to="/login">
+                <button className="border text-violet-800 border-yellow-500 px-2 py-1 rounded-md font-semibold cursor-pointer hover:bg-yellow-600 transition-all ease-in-out duration-300">
+                  Login
+                </button>
+              </Link>
+            </>
+          )}
+
+
+
+
 
 <Link to="/Service">
 <button className="border text-violet-800 border-yellow-500 px-2 py-1 rounded-md font-semibold cursor-pointer hover:bg-yellow-600 transition-all ease-in-out duration-300">

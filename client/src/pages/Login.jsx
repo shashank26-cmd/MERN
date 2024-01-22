@@ -2,9 +2,12 @@ import { useState } from "react";
 import signup from "../assets/undraw_sign_up_n6im.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 
 function Login() {
   const navigate = useNavigate();
+  const { storeToken }=useAuth();
+
 
   const [data, setData] = useState({
     email: "",
@@ -28,8 +31,8 @@ function Login() {
       };
 
       const response = await axios.post("http://localhost:9036/api/v1/user/login", data, { headers });
-      console.log(response);
 
+      storeToken(response.data.token);
       if (response?.data?.success) {
         navigate('/');
       }
