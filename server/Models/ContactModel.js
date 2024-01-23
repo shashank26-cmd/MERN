@@ -2,7 +2,7 @@ import { model,Schema } from "mongoose";
 
 const contactSchema =new Schema({
 
-    Name:{
+    username:{
         type:String,
         required:true,
 
@@ -12,7 +12,7 @@ const contactSchema =new Schema({
         type:String,
         required:true,
     },
-    Message:{
+message:{
         type:String,
         required:true,
     }},{

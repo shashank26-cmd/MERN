@@ -100,7 +100,7 @@ const data=req.user;
 console.log(data);
 
 return res.status(201).json({
-    msg:data
+    data
 }) 
 
 
