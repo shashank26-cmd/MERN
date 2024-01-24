@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
+  const[services,setservices]=useState("")
 
   const storeToken = (serverToken) => {
     try {
@@ -45,14 +46,19 @@ console.log(response);
     }
   };
 
+ const getServices= async()=>{
+  const response = await axios.get(`http://localhost:9036/api/v1/service/service`);
+  console.log(response.data.mssg);
+  setservices(response.data.mssg);
+ }
 
   useEffect(() => {
-    
+    getServices();
     userAuthentictaion();
   }, []); 
 
   return (
-    <AuthContext.Provider value={{ storeToken, LogoutUser, isLoggedIn, user, setUser }}>
+    <AuthContext.Provider value={{services, storeToken, LogoutUser, isLoggedIn, user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
