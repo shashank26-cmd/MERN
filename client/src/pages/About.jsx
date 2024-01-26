@@ -2,6 +2,7 @@ import { useAuth } from "../store/auth";
 function About(){
 
     const {user}=useAuth();
+    
 
     return(
         <>

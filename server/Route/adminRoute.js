@@ -8,7 +8,7 @@ const router=Router();
 
 
 router.get('/users',authMiddleware,getAllUsers);
-router.get('/contact',getAllContacts)
+router.get('/contact',authMiddleware,getAllContacts)
 
 
 export default router;

@@ -7,7 +7,7 @@ function Service() {
 
   return (
     <div className="flex flex-wrap justify-center gap-10 p-8">
-      {services.map((p) => 
+      {services && services.map((p) => 
         <ServiceCard
           service={p.service}
           key={p._id}

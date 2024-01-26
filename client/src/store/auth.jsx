@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom"; // Correct import statement
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
-  const[services,setservices]=useState("")
+  const [services, setServices] = useState([]); // Initialize as an empty array
 
   const storeToken = (serverToken) => {
     try {
@@ -26,39 +25,39 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
   };
 
-
-  // Authentication 
-   const userAuthentictaion = async () => {
+  const userAuthentication = async () => {
     try {
       const response = await axios.get("http://localhost:9036/api/v1/user/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-console.log(response);
       setUser(response.data);
-
-
-      // Assuming the response.data contains user information
-      setUser(response.data);
-    } catch (e) {
-      console.log("error in fetching", e);
+    } catch (error) {
+      console.error("Error in user authentication:", error);
     }
   };
 
- const getServices= async()=>{
-  const response = await axios.get(`http://localhost:9036/api/v1/service/service`);
-  console.log(response.data.mssg);
-  setservices(response.data.mssg);
- }
+  const getServices = async () => {
+    try {
+      const response = await axios.get("http://localhost:9036/api/v1/service/service");
+      setServices(response.data.mssg);
+    } catch (error) {
+      console.error("Error in fetching services:", error);
+    }
+  };
+  const fetchData = async () => {
+    await getServices();
+    await userAuthentication();
+  };
 
   useEffect(() => {
-    getServices();
-    userAuthentictaion();
-  }, []); 
+   
+    fetchData();
+  }, [token]);
 
   return (
-    <AuthContext.Provider value={{services, storeToken, LogoutUser, isLoggedIn, user, setUser }}>
+    <AuthContext.Provider value={{ services, storeToken, LogoutUser, isLoggedIn, user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
