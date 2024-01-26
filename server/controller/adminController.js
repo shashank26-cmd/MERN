@@ -3,10 +3,10 @@ import Contact from "../Models/ContactModel.js"
 
 export const getAllUsers = async (req, res) => {
   try {
-    const response = await User.find({},{password:0});
-    
+    const data = await User.find({},{password:0});
+    console.log(data);
     return res.status(200).json({
-      response
+      data
     });
   } catch (e) {
     console.log(e);

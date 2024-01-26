@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
   const [services, setServices] = useState([]); // Initialize as an empty array
+  const authorizationToken=`Bearer ${token}`;
 
   const storeToken = (serverToken) => {
     try {
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.get("http://localhost:9036/api/v1/user/me", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization:authorizationToken,
         },
       });
       setUser(response.data);
@@ -57,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ services, storeToken, LogoutUser, isLoggedIn, user, setUser }}>
+    <AuthContext.Provider value={{ authorizationToken,services, storeToken, LogoutUser, isLoggedIn, user, setUser }}>
       {children}
     </AuthContext.Provider>
   );
