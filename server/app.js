@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from "./Route/userRoute.js"
 import contactRoute from './Route/contactRoute.js'
 import serviceRoute from "./Route/serviceRoute.js"
+import adminRoute from "./Route/adminRoute.js"
 
 const app=express();
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use('/ping',(req,res)=>{
 app.use('/api/v1/user',userRoutes);
 app.use('/api/v1/contact',contactRoute);
 app.use('/api/v1/service',serviceRoute);
+app.use('/api/v1/admin',adminRoute);
 
 
 export default app;
