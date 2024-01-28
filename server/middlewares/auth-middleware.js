@@ -42,3 +42,23 @@ export const authMiddleware = async (req, res, next) => {
     });
   }
 };
+
+
+export const adminMiddleware = async (req, res, next) => {
+  try {
+    const user = req.user;
+
+    if (!user || !user.isAdmin) {
+      return res.status(403).json({
+        message: "You are not authorized to access this resource.",
+      });
+    }
+
+    next();
+  } catch (error) {
+    console.error("Error in admin middleware:", error);
+    return res.status(500).json({
+      message: "Internal server error.",
+    });
+  }
+};
